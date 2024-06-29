@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { RouterLink } from "vue-router";
 
 const email = ref("");
 const password = ref("");
@@ -60,7 +61,7 @@ const handleLogin = () => {
         <div class="text-center">
           <p>
             Don't have an account?
-            <a href="/signup" class="text-blue-500">Sign Up</a>
+            <RouterLink to="/signup" class="text-blue-500">Sign Up</RouterLink>
           </p>
         </div>
       </form>

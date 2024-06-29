@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { RouterLink } from "vue-router";
 import axios from "axios";
 
 const username = ref("");
@@ -7,7 +8,7 @@ const email = ref("");
 const password = ref("");
 const password_confirm = ref("");
 
-const handleSignUp = () => {
+async function handleSignUp() {
   // Handle sign-up logic
   const data = {
     username: username.value,
@@ -16,15 +17,10 @@ const handleSignUp = () => {
     password_confirm: password_confirm.value,
   };
 
-  axios
-    .post("http://localhost:3000/signup", data)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+  const response = await axios.post("http://localhost:8000/signup", data);
+
+  console.log(response);
+}
 </script>
 
 <template>
@@ -32,7 +28,7 @@ const handleSignUp = () => {
     class="min-h-screen flex flex-col items-center justify-center bg-gray-100"
   >
     <div class="bg-white p-8 shadow-md w-96 rounded-xl">
-      <h2 class="text-2xl font-bold text-center mb-1">Create an account</h2>
+      <h2 class="text-2xl font-bold text-center mb-1" ff>Create an account</h2>
       <p class="text-gray-500 text-center mb-10">Trading made simple.</p>
       <form @submit.prevent="handleSignUp">
         <div class="mb-4">
@@ -80,7 +76,7 @@ const handleSignUp = () => {
         <div class="text-center">
           <p>
             Already have an account?
-            <a href="/login" class="text-blue-500">Login</a>
+            <RouterLink to="/login" class="text-blue-500">Login</RouterLink>
           </p>
         </div>
       </form>
