@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import axios from "axios";
 
 const username = ref("");
 const email = ref("");
@@ -8,12 +9,21 @@ const password_confirm = ref("");
 
 const handleSignUp = () => {
   // Handle sign-up logic
-  console.log("Sign Up", {
+  const data = {
     username: username.value,
     email: email.value,
     password: password.value,
     password_confirm: password_confirm.value,
-  });
+  };
+
+  axios
+    .post("http://localhost:3000/signup", data)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 </script>
 
