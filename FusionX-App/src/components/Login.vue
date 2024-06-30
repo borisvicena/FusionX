@@ -12,9 +12,7 @@ const handleLogin = () => {
 </script>
 
 <template>
-  <div
-    class="min-h-screen flex flex-col items-center justify-center bg-gray-100"
-  >
+  <div class="min-h-screen flex flex-col items-center justify-center">
     <div class="bg-white p-8 shadow-md w-96 rounded-xl">
       <h2 class="text-2xl font-bold text-center mb-1">Hi, Welcome Back! 👋</h2>
       <p class="text-gray-500 text-center mb-10">
