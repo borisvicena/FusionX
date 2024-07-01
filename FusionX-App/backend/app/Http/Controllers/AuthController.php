@@ -3,12 +3,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 
 class AuthController extends Controller
 {
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $request->$user->createToken('authToken')->accessToken;
+            return response()->json(['token' => $token], 200);
+        } else {
+            return response()->json(['error' => 'Unauthorised'],  401);
+        }
+    }
+
     public function signup(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -27,8 +42,10 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
+
+            $token = $user->createToken("authToken")->accessToken;
     
-            return response()->json(['message' => 'User created successfully', 'user' => $user], 201);
+            return response()->json(['message' => 'User created successfully', 'user' => $user, 'token' => $token], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to create user', 'error' => $e->getMessage()], 500);
         }

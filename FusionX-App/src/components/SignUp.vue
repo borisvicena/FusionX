@@ -28,9 +28,13 @@ const handleSignUp = async () => {
 
     // Store user info in local storage
     localStorage.setItem("user", JSON.stringify(response.data.user));
+    // Store auth token in local storage
+    localStorage.setItem("authToken", response.data.token);
 
-    // Redirect to dashboard page
-    router.push({ name: "Dashboard" });
+    // Redirect to dashboard page and wait 2 seconds (for success message to show)
+    setTimeout(() => {
+      router.push({ name: "Dashboard" });
+    }, 2000);
   } catch (error) {
     console.log(error);
   }
@@ -88,12 +92,7 @@ const handleSignUp = async () => {
             class="w-full px-3 py-2 border rounded"
           />
         </div>
-        <button
-          type="submit"
-          class="w-full bg-blue-500 text-white py-2 rounded mb-4"
-        >
-          Sign Up
-        </button>
+        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded mb-4">Sign Up</button>
         <!-- Already have an account link -->
         <div class="text-center">
           <p>
