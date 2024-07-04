@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import axios from "axios";
 import { ref } from "vue";
 import { useRouter, RouterLink } from "vue-router";
+import axios from "../axios";
 
 const email = ref("");
 const password = ref("");
@@ -16,7 +16,8 @@ const handleLogin = async () => {
       password: password.value,
     });
 
-    const { token } = response.data;
+    const { token, user } = response.data;
+    localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("authToken", token);
 
     router.push({ name: "Dashboard" });

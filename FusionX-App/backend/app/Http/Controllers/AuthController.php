@@ -11,14 +11,20 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
 
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(['message' => 'Successfully logged out'], 200);
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $token = $request->$user->createToken('authToken')->accessToken;
-            return response()->json(['token' => $token], 200);
+            $token = $request->user()->createToken('authToken');
+            return response()->json(['token' => $token->plainTextToken], 200);
         } else {
             return response()->json(['error' => 'Unauthorised'],  401);
         }
@@ -43,7 +49,7 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
-            $token = $user->createToken("authToken")->accessToken;
+            $token = $user->createToken('authToken')->plainTextToken;
     
             return response()->json(['message' => 'User created successfully', 'user' => $user, 'token' => $token], 201);
         } catch (\Exception $e) {

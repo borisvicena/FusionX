@@ -74,10 +74,13 @@ const handleSignUp = async () => {
     // Show success alert
     successMessage.value = "User created successfully";
 
+    const { token, user } = response.data;
     // Store user info in local storage
-    localStorage.setItem("user", JSON.stringify(response.data.user));
+    localStorage.setItem("user", JSON.stringify(user));
     // Store auth token in local storage
-    localStorage.setItem("authToken", response.data.token);
+    localStorage.setItem("authToken", token);
+
+    console.log("Signup", localStorage);
 
     // Redirect to dashboard page and wait 2 seconds (for success message to show)
     setTimeout(() => {
