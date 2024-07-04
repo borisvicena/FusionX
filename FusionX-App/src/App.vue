@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar.vue";
 </script>
 
 <template>
-  <div id="app" class="min-h-screen flex flex-col font-Poppins">
+  <div id="app" class="min-h-screen flex flex-col font-Poppins dark:text-white text-black">
     <header>
       <Navbar />
     </header>

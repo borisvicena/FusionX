@@ -12,8 +12,12 @@ export default {
       backgroundColor: {
         "primary-gradient": "#1e1e2f",
         "secondary-gradient": "#27293d",
+        "primary-pink": "#e14eca",
       },
       borderColor: {
+        "primary-pink": "#e14eca",
+      },
+      boxShadowColor: {
         "primary-pink": "#e14eca",
       },
     },
